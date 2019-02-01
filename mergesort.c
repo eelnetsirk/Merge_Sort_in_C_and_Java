@@ -1,6 +1,8 @@
 //@author Kristen Lee
+//@author David Chiu, of rtclock.h and rtclock.c
 //@date 01/30/2019
-
+// compile with "$ gcc mergesort.c rtclock.c"
+#include "rtclock.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -85,21 +87,20 @@ int main(int argc, char* argv[]){
     int array_size = atoi(argv[1]);//converts string to int
     printf("Sorting array size of %d.\n", array_size);
     srand(time(NULL));//seed srand once in main
-    time_t begin, end;
-    long i;
+    double begin, end;
     int* random_array = makeRandomArray(array_size);
-    int* spare_array = makeSpareArray(array_size/2);
+    int* spare_array = makeSpareArray(array_size);
     printf("Before: ");
     printArray(random_array, array_size);
-    begin = time(NULL);
+    begin = rtclock();
     mergeSort(random_array, spare_array, array_size);//actual merge sort process
-    end = time(NULL);
+    end = rtclock();
     printf("After: ");
     printArray(random_array, array_size);
     free(random_array);
     free(spare_array);
     int difference = end - begin;
-    printf("Sorting took %ld to complete.\n", end - begin);
+    printf("Sorting took %f to complete.\n", end - begin);
   }
   return 0;
 }
